@@ -1,10 +1,10 @@
 from pathlib import Path
 
-# path = Path("C:/Users/a830083/Desktop/DDO/unicod.txt")
+path = Path("C:/Users/a830083/Desktop/DDO/unicod.txt")
 # path = Path("C:/Users/a830083/Desktop/DDO/personal_test.txt")
 # path = Path("C:/Users/a830083/Desktop/DDO/ascii.txt")
 # path = Path("C:/Users/a830083/Desktop/DDO/new_file_test.txt")
-path = Path("C:/Users/a830083/Desktop/DDO/DocsFromMila/TestApp/SCD_personen.txt")
+# path = Path("C:/Users/a830083/Desktop/DDO/DocsFromMila/TestApp/SCD_personen.txt")
 
 file_from_path = bytearray(open(path, 'rb').read())
 
