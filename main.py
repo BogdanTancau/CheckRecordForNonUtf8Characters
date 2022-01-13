@@ -1,10 +1,13 @@
+import logging
 from pathlib import Path
 
-path = Path("C:/Users/a830083/Desktop/DDO/unicod.txt")
-# path = Path("C:/Users/a830083/Desktop/DDO/personal_test.txt")
+logging.basicConfig(filename="logfilename.log", level=logging.INFO,
+                    format='%(asctime)s,%(msecs)d %(levelname)-8s %(message)s',
+                    datefmt='%Y-%m-%d:%H:%M:%S')
+
+# path = Path("C:/Users/a830083/Desktop/DDO/unicod.txt")
 # path = Path("C:/Users/a830083/Desktop/DDO/ascii.txt")
-# path = Path("C:/Users/a830083/Desktop/DDO/new_file_test.txt")
-# path = Path("C:/Users/a830083/Desktop/DDO/DocsFromMila/TestApp/SCD_personen.txt")
+path = Path("C:/Users/a830083/Desktop/DDO/new_file_test.txt")
 
 file_from_path = bytearray(open(path, 'rb').read())
 
@@ -12,7 +15,6 @@ file_from_path = bytearray(open(path, 'rb').read())
 def checkFileIfContainsOnlyUTF8Chars(fileNameBytes):
     global char_len
     badCharsCounter = 0
-    i = 0
     end = 0
     for i in range(fileNameBytes.__len__()):
         octet = fileNameBytes[i]
@@ -32,10 +34,10 @@ def checkFileIfContainsOnlyUTF8Chars(fileNameBytes):
                 return False
         badCharsCounter += 1
     if badCharsCounter == 0:
-        print("true")
+        logging.info('This record can be process')
         return True
     else:
-        print(badCharsCounter, "false")
+        logging.error(f"This record contains {badCharsCounter} bad characters")
         return False
 
 
