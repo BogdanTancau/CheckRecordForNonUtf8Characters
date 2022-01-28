@@ -45,3 +45,5 @@
 2022-01-19:13:15:27,493 INFO     This record can be process
 2022-01-19:13:16:21,141 ERROR    This record contains bad characters
 2022-01-19:13:16:25,474 ERROR    This record contains bad characters
+2022-01-20:12:26:20,691 INFO     This record can be process
+2022-01-20:12:26:49,345 ERROR    This record contains bad characters

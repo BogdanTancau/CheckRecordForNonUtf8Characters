@@ -1,3 +1,6 @@
+# This application compare the leading bytes of each character in the record
+# if they are the same as the UTF-8 bytes.
+
 import logging
 from pathlib import Path
 
@@ -9,8 +12,9 @@ logging.basicConfig(filename="logfilename.log", level=logging.INFO,
 # path = Path("C:/Users/a830083/Desktop/DDO/unicod.txt")
 # path = Path("C:/Users/a830083/Desktop/DDO/unicod - Copy.txt")
 # path = Path("C:/Users/a830083/Desktop/DDO/ascii.txt")
-path = Path("C:/Users/a830083/Desktop/DDO/for_ascii_test.txt")
-# path = Path("C:/Users/a830083/Desktop/DDO/new_file_test.txt")
+# path = Path("C:/Users/a830083/Desktop/DDO/for_ascii_test.txt")
+# path = Path("C:/Users/a830083/Desktop/DDO/file_test.txt")
+path = Path("C:/Users/a830083/Desktop/DDO/bad_file_test.txt")
 
 # log from bucket
 file_from_path = bytearray(open(path, 'rb').read())
@@ -19,14 +23,14 @@ file_from_path = bytearray(open(path, 'rb').read())
 def checkFileIfContainsOnlyUTF8Chars(fileNameBytes):
     # Define bad_byte_counter variable for keeping the non UTF 8 characters
     bad_byte_counter = 0
-    # Define end variable for keeping the i value and compare with i later
+    # Define end variable for keeping the i value and compare later
     end = 0
     # For loop that iterate over the bytes of file
     for i in range(fileNameBytes.__len__()):
-        # Octet take rach byte value from fileNameBytes
+        # Octet take each byte value from fileNameBytes
         octet = fileNameBytes[i]
         # Compare the first Byte using bitwise and-operator(It does an and-operation on each bit position)
-        # Exemple       10010001
+        # Example       10010001
         #               10000000
         # That would be 10000000
         if (octet & 0x80) == 0:
