@@ -3,7 +3,7 @@
 ***
 
 ### This application check if the record has characters that are not encoded in UTF-8 format.
-- If a char from the record it's not UTF-8 encoded, the record will log an error message
+- If a char from the record it's not UTF-8 encoded, the application will log an error message
 
 ### After you run this program it will create one log file with two messages
 
