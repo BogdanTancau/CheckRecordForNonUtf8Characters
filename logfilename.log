@@ -68,3 +68,18 @@
 2022-02-10:11:06:06,953 ERROR    This record contains bad characters
 2022-02-10:11:11:42,935 ERROR    This record contains bad characters
 2022-02-10:11:18:18,147 ERROR    This record contains bad characters
+2022-02-10:11:54:20,738 ERROR    This record contains bad characters
+2022-02-10:12:03:51,560 INFO     This record can be process
+2022-02-10:12:04:36,807 INFO     This record can be process
+2022-02-15:16:40:06,149 INFO     This record can be process
+2022-02-15:16:43:37,374 INFO     This record can be process
+2022-02-16:11:15:31,667 INFO     This record can be process
+2022-02-16:11:15:32,832 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to <Blob: record-ready-for-processing, ascii_test.txt, 1645002931476112>
+2022-02-16:11:19:28,468 INFO     The fileascii_test.txt from the bucket gce-file-test-utf was readed
+2022-02-16:11:19:28,468 INFO     This record can be process
+2022-02-16:11:19:29,628 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to <Blob: record-ready-for-processing, ascii_test.txt, 1645003168277633>
+2022-02-16:11:20:36,7 INFO     The file format for ascii_test.txt from the bucket gce-file-test-utf is readable
+2022-02-16:11:20:36,7 INFO     This record can be process
+2022-02-16:11:20:37,137 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to <Blob: record-ready-for-processing, ascii_test.txt, 1645003235786567>
+2022-02-16:15:41:26,895 INFO     The file format for ascii_test.txt from the bucket gce-file-test-utf is readable
+2022-02-16:15:41:26,895 INFO     This record can be process
