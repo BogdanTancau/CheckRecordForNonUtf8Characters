@@ -8,7 +8,6 @@ from google.cloud import storage
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:/Projects/Python/CheckRecordForUtfAndAscii/key.json'
 
-
 # Create Log file
 logging.basicConfig(filename="logfilename.log", level=logging.INFO,
                     format='%(asctime)s,%(msecs)d %(levelname)-8s %(message)s',
@@ -16,16 +15,29 @@ logging.basicConfig(filename="logfilename.log", level=logging.INFO,
 
 
 # read file from the bucket
-def read_file(bucket_name, file_name):
+def read_file():
+    bucket_name = 'gce-master-data'
+    file_name = ''
+    new_bucket_name = 'gce-file-test-utf'
+    new_file_name = ''
+    # global read_output
     storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(file_name)
-    read_output = blob.download_as_bytes()
-    logging.info(f"The file format for {file_name} from the bucket {bucket_name} is readable")
-    return read_output
+    source_bucket = storage_client.get_bucket(bucket_name)
+    # source_blob = source_bucket.blob(file_name)
+    blob_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
+    for file_name in blob_name:
+        print(file_name.name)
+    # try
+        read_output = file_name.download_as_bytes()
+        logging.info(f"The file format for {file_name} from the bucket {bucket_name} is readable")
+        checkFileIfContainsOnlyUTF8Chars(read_output)
+    # return read_output
+    # catch
 
+def copy_the_read_file(bucket_name, file_name, new_bucket_name, new_file_name):
+    # file_name = ""
+    # new_file_name = ""
 
-def move_the_read_file(bucket_name, file_name, new_bucket_name, new_file_name):
     """
     Function for moving files between directories or buckets. It will use GCP's copy
     function then delete the blob from the old location.
@@ -43,18 +55,27 @@ def move_the_read_file(bucket_name, file_name, new_bucket_name, new_file_name):
     source_bucket = storage_client.get_bucket(bucket_name)
     source_blob = source_bucket.blob(file_name)
     destination_bucket = storage_client.get_bucket(new_bucket_name)
-
+    blob_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
+    # blob_name = storage_client.list_blobs(bucket_name)
+    # for file_name in blob_name:
+    #     print(file_name.name)
+# new file_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS') .copy_blob
     # copy to new destination
-    new_file_name = source_bucket.copy_blob(
-        source_blob, destination_bucket, new_file_name)
+    # new_file_name = source_bucket.copy_blob(source_blob.path_helper(blob_name), destination_bucket, new_file_name)
+    # new_file_name = source_bucket.copy_blob(
+    #     source_blob, destination_bucket, new_file_name)
     # delete in old destination
     # source_blob.delete()
 
     logging.info(f'File moved from {source_blob} to {new_file_name}')
 
 
-def checkFileIfContainsOnlyUTF8Chars():
-    fileNameBytes = read_file("gce-file-test-utf", "ascii_test.txt")
+###############Must search in folder not in bucket
+# copy_the_read_file("gce-master-data", "gce-file-test-utf")
+
+
+def checkFileIfContainsOnlyUTF8Chars(fileNameBytes):
+    # fileNameBytes = read_file(bucket_name)
     """
     This function check if the record has only UTF-8 character.
     :param fileNameBytes:
@@ -100,20 +121,17 @@ def checkFileIfContainsOnlyUTF8Chars():
         # Log message to the Log file
         logging.info('This record can be process')
         # Move the file to ready for processing bucket, and then delete the file from gce-file-test-utf
-        move_the_read_file('gce-file-test-utf', 'ascii_test.txt', 'record-ready-for-processing', 'ascii_test.txt')
+        copy_the_read_file('gce-file-test-utf', 'ascii_test.txt', 'record-ready-for-processing', 'ascii_test.txt')
         return True
     else:
         # If bad_byte_counter != 0 the record contains non UTF 8 characters
         # Log message to the Log file
         logging.error("This record contains bad characters")
         # Move the file to not_utf8_encoded bucket, and then delete the file from gce-file-test-utf
-        move_the_read_file("gce-file-test-utf", "ascii_test.txt", "non-utf8-records", "ascii_test.txt")
+        copy_the_read_file("gce-file-test-utf", "ascii_test.txt", "non-utf8-records", "ascii_test.txt")
         return False
 
 
-checkFileIfContainsOnlyUTF8Chars()
+read_file()
 
-
-
-
-
+# checkFileIfContainsOnlyUTF8Chars()

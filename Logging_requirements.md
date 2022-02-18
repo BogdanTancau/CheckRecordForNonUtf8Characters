@@ -23,15 +23,12 @@
 - Input validation failures(unacceptable encodings)
 - Output validation failures
 - Application errors and system events e.g. syntax and runtime errors, connectivity problems, performance issues, third party service error messages, file system errors, file upload virus detection, configuration changes
-- Data changes
-- Sequencing failure
 ## The application logs must record "when, where, who and what" for each event.
 
 
 ### When
 - Log date and time (international format)
 - Event date and time - the event timestamp may be different to the time of logging e.g. server logging where the client application is hosted on remote device that is only periodically or intermittently online
-- Interaction identifier Note A
 ### Where
 - Application identifier e.g. name and version
 - Application address e.g. cluster/hostname or server IPv4 or IPv6 address and port number, workstation identity, local device identifier
@@ -49,16 +46,16 @@
 - Description
 - Default should not be used
 
-| 100 | Debug     | Debug or trace information.                                                         |
-|-----|-----------|-------------------------------------------------------------------------------------|
-| 100 | Debug     | Debug or trace information.                                                         |
-| 200 | Info      | Routine information, such as ongoing status or performance.                         |
-| 300 | Notice    | Normal but significant events such as start up, shut down, or configuration change. |
-| 400 | Warning   | Warning events might cause problem.                                                 |
-| 500 | Error     | Error events are likely to cause problem                                            |
-| 600 | Critical  | Critical events cause more severe problems or outage.                               |
-| 700 | Alert     | A person must take action immediately.                                              |
-| 800 | Emergency | One or more system are unusable.                                                    |
+| Code | Info      | Description                                                                         |
+|------|-----------|-------------------------------------------------------------------------------------|
+| 100  | Debug     | Debug or trace information.                                                         |
+| 200  | Info      | Routine information, such as ongoing status or performance.                         |
+| 300  | Notice    | Normal but significant events such as start up, shut down, or configuration change. |
+| 400  | Warning   | Warning events might cause problem.                                                 |
+| 500  | Error     | Error events are likely to cause problem                                            |
+| 600  | Critical  | Critical events cause more severe problems or outage.                               |
+| 700  | Alert     | A person must take action immediately.                                              |
+| 800  | Emergency | One or more system are unusable.                                                    |
 
 ## Security
 - IMPORTANT: do not allow elevation of privilege to the sensitive information. Logging of the real data may be not needed for developers. If such, obfuscation of real protected data must be enforced

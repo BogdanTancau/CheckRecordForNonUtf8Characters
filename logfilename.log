@@ -83,3 +83,26 @@
 2022-02-16:11:20:37,137 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to <Blob: record-ready-for-processing, ascii_test.txt, 1645003235786567>
 2022-02-16:15:41:26,895 INFO     The file format for ascii_test.txt from the bucket gce-file-test-utf is readable
 2022-02-16:15:41:26,895 INFO     This record can be process
+2022-02-16:16:30:41,653 INFO     File moved from <Blob: gce-file-test-utf, , None> to 
+2022-02-16:16:31:46,325 INFO     File moved from <Blob: gce-file-test-utf, , None> to 
+2022-02-16:16:50:14,862 INFO     File moved from <Blob: gce-file-test-utf, , None> to 
+2022-02-16:16:50:39,575 INFO     File moved from <Blob: gce-file-test-utf, , None> to 
+2022-02-17:14:48:06,80 INFO     File moved from <Blob: gce-master-data, , None> to 
+2022-02-18:13:16:50,551 INFO     The file format for <Blob: gce-master-data, clientData_utf8/SIEMS/SAL_Location_fuer_SIS_ATOS_utf8.txt, 1643720788671552> from the bucket gce-master-data is readable
+2022-02-18:13:16:51,11 ERROR    This record contains bad characters
+2022-02-18:13:16:51,647 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to ascii_test.txt
+2022-02-18:13:16:53,937 INFO     The file format for <Blob: gce-master-data, clientData_utf8/SIEMS/SCD_personen_utf8.txt, 1643718576855495> from the bucket gce-master-data is readable
+2022-02-18:13:17:12,455 ERROR    This record contains bad characters
+2022-02-18:13:17:13,112 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to ascii_test.txt
+2022-02-18:13:17:13,645 INFO     The file format for <Blob: gce-master-data, clientData_utf8/SIEMS/SIEMS_OU1_assignment_rules_utf8.csv, 1643718597178075> from the bucket gce-master-data is readable
+2022-02-18:13:17:13,667 ERROR    This record contains bad characters
+2022-02-18:13:17:14,287 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to ascii_test.txt
+2022-02-18:13:19:00,498 INFO     The file format for <Blob: gce-master-data, clientData_utf8/SIEMS/SAL_Location_fuer_SIS_ATOS_utf8.txt, 1643720788671552> from the bucket gce-master-data is readable
+2022-02-18:13:19:00,956 ERROR    This record contains bad characters
+2022-02-18:13:19:01,584 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to ascii_test.txt
+2022-02-18:13:19:03,752 INFO     The file format for <Blob: gce-master-data, clientData_utf8/SIEMS/SCD_personen_utf8.txt, 1643718576855495> from the bucket gce-master-data is readable
+2022-02-18:13:19:33,554 ERROR    This record contains bad characters
+2022-02-18:13:19:34,232 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to ascii_test.txt
+2022-02-18:13:19:34,707 INFO     The file format for <Blob: gce-master-data, clientData_utf8/SIEMS/SIEMS_OU1_assignment_rules_utf8.csv, 1643718597178075> from the bucket gce-master-data is readable
+2022-02-18:13:19:34,741 ERROR    This record contains bad characters
+2022-02-18:13:19:35,374 INFO     File moved from <Blob: gce-file-test-utf, ascii_test.txt, None> to ascii_test.txt
