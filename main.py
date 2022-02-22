@@ -18,56 +18,65 @@ logging.basicConfig(filename="logfilename.log", level=logging.INFO,
 def read_file():
     bucket_name = 'gce-master-data'
     file_name = ''
-    new_bucket_name = 'gce-file-test-utf'
+    # destination_bucket_for_bad_char = 'non-utf8-records'
     new_file_name = ''
     # global read_output
     storage_client = storage.Client()
     source_bucket = storage_client.get_bucket(bucket_name)
-    # source_blob = source_bucket.blob(file_name)
-    blob_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
-    for file_name in blob_name:
+    # bucket_complete_path = storage_client.bucket('gce-master-data/clientData_utf8/SIEMS')
+    source_blob = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
+    destination_bucket_for_utf8_file = storage_client.get_bucket('record-ready-for-processing')
+    destination_bucket_for_bad_char = storage_client.get_bucket('non-utf8-records')
+    for file_name in source_blob:
+        new_file_name = file_name.name
         print(file_name.name)
-    # try
+        # try
         read_output = file_name.download_as_bytes()
         logging.info(f"The file format for {file_name} from the bucket {bucket_name} is readable")
-        checkFileIfContainsOnlyUTF8Chars(read_output)
+        if checkFileIfContainsOnlyUTF8Chars(read_output):
+            source_bucket.copy_blob(file_name, destination_bucket_for_utf8_file, new_file_name)
+        else:
+            # source_bucket.copy_blob(source_bucket.path_helper(prefix='clientData_utf8/SIEMS'), destination_bucket_for_utf8_file, file_name.name)
+            source_bucket.copy_blob(file_name, destination_bucket_for_bad_char, new_file_name)
+
     # return read_output
     # catch
 
-def copy_the_read_file(bucket_name, file_name, new_bucket_name, new_file_name):
-    # file_name = ""
-    # new_file_name = ""
 
-    """
-    Function for moving files between directories or buckets. It will use GCP's copy
-    function then delete the blob from the old location.
-
-    inputs
-    -----
-    bucket_name: name of bucket
-    blob_name: str, name of file
-        ex. 'data/some_location/file_name'
-    new_bucket_name: name of bucket (can be same as original if we're just moving around directories)
-    new_blob_name: str, name of file in new directory in target bucket
-        ex. 'data/destination/file_name'
-    """
-    storage_client = storage.Client()
-    source_bucket = storage_client.get_bucket(bucket_name)
-    source_blob = source_bucket.blob(file_name)
-    destination_bucket = storage_client.get_bucket(new_bucket_name)
-    blob_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
-    # blob_name = storage_client.list_blobs(bucket_name)
-    # for file_name in blob_name:
-    #     print(file_name.name)
-# new file_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS') .copy_blob
-    # copy to new destination
-    # new_file_name = source_bucket.copy_blob(source_blob.path_helper(blob_name), destination_bucket, new_file_name)
-    # new_file_name = source_bucket.copy_blob(
-    #     source_blob, destination_bucket, new_file_name)
-    # delete in old destination
-    # source_blob.delete()
-
-    logging.info(f'File moved from {source_blob} to {new_file_name}')
+# def copy_the_read_file(bucket_name, file_name, new_bucket_name, new_file_name):
+#     # file_name = ""
+#     # new_file_name = ""
+#
+#     """
+#     Function for moving files between directories or buckets. It will use GCP's copy
+#     function then delete the blob from the old location.
+#
+#     inputs
+#     -----
+#     bucket_name: name of bucket
+#     blob_name: str, name of file
+#         ex. 'data/some_location/file_name'
+#     new_bucket_name: name of bucket (can be same as original if we're just moving around directories)
+#     new_blob_name: str, name of file in new directory in target bucket
+#         ex. 'data/destination/file_name'
+#     """
+#     storage_client = storage.Client()
+#     source_bucket = storage_client.get_bucket(bucket_name)
+#     source_blob = source_bucket.blob(file_name)
+#     destination_bucket = storage_client.get_bucket(new_bucket_name)
+#     blob_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
+#     # blob_name = storage_client.list_blobs(bucket_name)
+#     # for file_name in blob_name:
+#     #     print(file_name.name)
+# # new file_name = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS') .copy_blob
+#     # copy to new destination
+#     # new_file_name = source_bucket.copy_blob(source_blob.path_helper(blob_name), destination_bucket, new_file_name)
+#     # new_file_name = source_bucket.copy_blob(
+#     #     source_blob, destination_bucket, new_file_name)
+#     # delete in old destination
+#     # source_blob.delete()
+#
+#     logging.info(f'File moved from {source_blob} to {new_file_name}')
 
 
 ###############Must search in folder not in bucket
@@ -121,14 +130,14 @@ def checkFileIfContainsOnlyUTF8Chars(fileNameBytes):
         # Log message to the Log file
         logging.info('This record can be process')
         # Move the file to ready for processing bucket, and then delete the file from gce-file-test-utf
-        copy_the_read_file('gce-file-test-utf', 'ascii_test.txt', 'record-ready-for-processing', 'ascii_test.txt')
+        # copy_the_read_file('gce-file-test-utf', 'ascii_test.txt', 'record-ready-for-processing', 'ascii_test.txt')
         return True
     else:
         # If bad_byte_counter != 0 the record contains non UTF 8 characters
         # Log message to the Log file
         logging.error("This record contains bad characters")
         # Move the file to not_utf8_encoded bucket, and then delete the file from gce-file-test-utf
-        copy_the_read_file("gce-file-test-utf", "ascii_test.txt", "non-utf8-records", "ascii_test.txt")
+        # copy_the_read_file("gce-file-test-utf", "ascii_test.txt", "non-utf8-records", "ascii_test.txt")
         return False
 
 
