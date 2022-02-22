@@ -21,11 +21,10 @@ def read_and_verify_the_file():
     checked by the checkFileIfContainsOnlyUTF8Chars() method to make sure it contains non-UTF8 characters.
     :return:
     """
-    bucket_name = 'gce-master-data'
-    # global read_output
+    bucket_name = 'gce-file-test-utf'
     storage_client = storage.Client()
     source_bucket = storage_client.get_bucket(bucket_name)
-    source_blob = source_bucket.list_blobs(prefix='clientData_utf8/SIEMS')
+    source_blob = source_bucket.list_blobs()
     destination_bucket_for_utf8_file = storage_client.get_bucket('record-ready-for-processing')
     destination_bucket_for_bad_char = storage_client.get_bucket('non-utf8-records')
     for file_name in source_blob:
